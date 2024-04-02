@@ -1,0 +1,23 @@
+body {
+    background-image: url('pic/coll.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:100%;
+}
+
+img.pot {
+    height: 8%;
+    position: absolute;
+    width: 8%;
+    top:30%;
+    left:60%
+}
+
+img.logo {
+    height:auto;
+    width: 20%;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    z-index: 10;
+}
