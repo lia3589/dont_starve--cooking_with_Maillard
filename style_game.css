@@ -1,5 +1,5 @@
 body {
-    background-image: url('pic/coll.png');
+    background-color: rgb(253, 251, 249);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size:cover;
@@ -15,6 +15,59 @@ img.logo {
     cursor: pointer;
 }
 
-.container {
-    width: 50%;
+#container {
+    display: flex;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#left {
+    position: fixed;
+    width: 30%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    justify-content: center;
+    align-items: center;
+}
+
+#right {
+    position: fixed;
+    width: 70%;
+    height: 100%;
+    top: 0;
+    left: 30%;
+    flex-grow: 1; /* 右侧自适应剩余空间 */
+    background-color: #f1f1f1;
+    overflow: auto; /* 添加滚动条 */
+}
+
+.message-op {
+    padding: 10px;
+}
+.message-we {
+    padding: 10px;
+}
+
+.message:last-child {
+    border: none;
+}
+
+img.wil {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+img.head {
+    height: 10px;
+    width: 10px;
 }
