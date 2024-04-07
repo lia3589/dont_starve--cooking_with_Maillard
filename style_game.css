@@ -14,3 +14,7 @@ img.logo {
     z-index: 10;
     cursor: pointer;
 }
+
+.container {
+    width: 50%;
+}
