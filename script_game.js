@@ -2,7 +2,7 @@ var rightDiv = document.getElementById('right');
 var conver=document.getElementById('left_right');
 let clickCount=0;
 document.addEventListener('click', function(event) {
-    if (event.target.closest('#right')) {
+    if (event.target.closest('#right') || event.target.closest('#left_right')) {
         addNewMessage();
     }
 });
