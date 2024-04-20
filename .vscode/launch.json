@@ -6,11 +6,12 @@
     "configurations": [
 
 
+
         {
             "type": "msedge",
             "request": "launch",
             "name": "Open index.html",
-            "file": "d:\\codes\\vscode_code\\html\\index.html"
+            "file": "d:\\codes\\vscode_code\\starve\\index.html"
         }
     ]
 }

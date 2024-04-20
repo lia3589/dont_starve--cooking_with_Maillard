@@ -1,51 +1,46 @@
-var rightDiv = document.getElementById('right');
-var conver=document.getElementById('left_right');
-let clickCount=0;
-document.addEventListener('click', function(event) {
-    if (event.target.closest('#right') || event.target.closest('#left_right')) {
-        addNewMessage();
-    }
-});
+// script.js  
+const characters = document.querySelectorAll('.character');  
+const dialogText = document.getElementById('dialogText');  
+const dialogName = document.getElementById('dialogName');  
+clickArea=document.getElementById('clickArea');  
+let activeCharacter = characters[0];  
+let dialogIndex = 0;  
+const dialogs = [  
+    '你好，威尔逊！',  
+    '待填入文本1',
+    '待填入文本2',   
+    '待填入文本3',   
+    '待填入文本4',   
+    '待填入文本5',   
+    '待填入文本6',   
+    '待填入文本7',   
+    '待填入文本8',   
+    '待填入文本9',   
+    '待填入文本10',   
 
-function addNewMessage() {
-    clickCount++;
-    let content=''
-    switch(clickCount) {
-        case 1:
-            content='你好，威尔逊！';
-            break;
-        case 2:
-            content='你是谁，我这是在哪？';
-            break;
-        case 3:
-            content='我饿了。你能给我做点好吃的吗？吃饱了我就告诉你。';
-            break;
-        case 4:
-            content='？？？';
-            break;
-        case 5:
-            content='祝你好运！';
-            break;
-        default:
-            return;
-    }
-    var newMessage = document.createElement('div');
-    var head=document.createElement('img');
-    if (clickCount%2==0) {
-        newMessage.classList.add('message-we');
-        head.src='pic/威尔逊.png';
-        head.classList.add('head');
-    } else {
-        newMessage.classList.add('message-op');
-        head.src='pic/Meatballs.png';
-        head.classList.add('head');
-    }
-    var messageContent = document.createElement('span');
-    messageContent.textContent = content;
+];  
 
-    newMessage.appendChild(head);
-    newMessage.appendChild(messageContent);
-
-    rightDiv.appendChild(newMessage);
-    rightDiv.scrollTop = rightDiv.scrollHeight;
-}
+dialogNames = [
+    '???',
+    '威尔逊',
+]
+  
+document.getElementById('clickArea').addEventListener('click',function() {
+    var nextLink = document.getElementById('nextLink');
+    if (dialogIndex >= dialogs.length) {  
+        nextLink.style.display = 'block'; // 显示链接  
+        nextLink.href = 'map.html'; // 设置链接到下一个页面的URL  
+    }  else {   
+        showDialog(dialogIndex);  
+        dialogIndex++;   
+    } 
+}) 
+  
+function showDialog(index) {  
+    dialogText.textContent = dialogs[index];  
+    dialogName.textContent = dialogNames[index%2];  
+}  
+  
+// 初始化，显示第一个角色的台词  
+showDialog(0);  
+activeCharacter.classList.add('active');

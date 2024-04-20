@@ -1,5 +1,7 @@
 let canvas = document.getElementById('gameCanvas');
 let ctx = canvas.getContext('2d');
+var overlay = document.getElementById('overlay');
+var popup = document.getElementById('popup');
 let choice=0
 
 // 初始化角色位置
@@ -49,15 +51,19 @@ document.addEventListener('keydown', function(event) {
     switch(event.keyCode) {
         case 87: // W键
             y -= speed;
+            image.src = 'pic/威尔逊后向.png'; // 替换成你的角色图片路径
             break;
         case 65: // A键
             x -= speed;
+            image.src = 'pic/威尔逊左向.png'; // 替换成你的角色图片路径
             break;
         case 83: // S键
             y += speed;
+            image.src = 'pic/威尔逊.png'; // 替换成你的角色图片路径
             break;
         case 68: // D键
             x += speed;
+            image.src = 'pic/威尔逊右向.png'; // 替换成你的角色图片路径
             break;
     }
     if (x < 0 || x > canvas.width) {
@@ -71,6 +77,30 @@ document.addEventListener('keydown', function(event) {
         choice=1
     }
     updateScreen();
+});
+
+function handleClick(event) {
+    var cx=event.clientX;
+    var cy=event.clientY;
+    var windowwidth=window.innerWidth;
+    var windowheight=window.innerHeight;
+    if (cx>windowwidth*0.098 && cx<windowwidth*0.152 && cy>0 && cy<windowheight*0.112) {
+        showPopup();
+    }
+}
+
+function showPopup() {
+    overlay.style.display = 'block';
+    popup.style.display = 'block';
+}
+function closePopup() {
+    overlay.style.display = 'none';
+    popup.style.display = 'none';
+}
+overlay.addEventListener('click', function(event) {
+    if (event.target === overlay) {
+        closePopup();
+    }
 });
 
 // 更新屏幕显示
