@@ -1,0 +1,59 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <style>  
+        img.logo {
+    height:7%;
+    width: auto;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    z-index: 10;
+    cursor: pointer;
+}
+        body, html {  
+            margin: 0;  
+            padding: 0;  
+            overflow: hidden;  
+            width: 100%;  
+            height: 100%;  
+        }  
+        .fullscreen-image {  
+            width: 100%;  
+            height: 100vh;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <a href="https://wbhu.nju.edu.cn/">
+        <img src="pic/logo-garden.gif" class="logo">
+    </a>
+    
+    <img id="fullscreenImage" class="fullscreen-image" src="pic/intro0.png" alt="Fullscreen Image" onclick="changeImage(event)" />  
+    <script>  
+        var images = ["pic/intro0.png","pic/intro1.png", "pic/intro2.jpg", "pic/intro3.png", "pic/intro4.png", "pic/intro5.png","pic/intro6.png","pic/intro7.png","pic/intro8.jpg","pic/intro9.png","pic/intro10.png","pic/intro-1.png"];  
+        var currentIndex = 0;         
+        function changeImage(event) {  
+            currentIndex+=1; // 循环切换图片  
+            if (currentIndex >= images.length) {  
+                var cx=event.clientX;  
+                var cy=event.clientY;  
+                var windowWidth=window.innerWidth;  
+                var windowHeight=window.innerHeight;  
+                if (cx>=windowWidth*0.415 && cx<=windowWidth*0.581 && cy>=windowHeight*0.493 && cy<=windowHeight*0.567) {  
+                    window.location.href="index.html"; 
+                }  
+                else if (cx>=windowWidth*0.415 && cx<=windowWidth*0.581 && cy>=windowHeight*0.635 && cy<=windowHeight*0.707) {  
+                    window.location.href="introduction.html";  
+                }
+                else if (cx>=windowWidth*0.433 && cx<=windowWidth*0.559 && cy>=windowHeight*0.782 && cy<=windowHeight*0.852) {
+                    window.location.href="creator.html"; 
+                } 
+                return;  
+            }  
+        
+            document.getElementById('fullscreenImage').src = images[currentIndex];  
+        }  
+    </script>  
+</body>  
+</html>

@@ -14,11 +14,38 @@
     transform: translate(-50%, -50%);
     padding: 20px;
     display: none;
-    z-index: 2;
+    z-index: 3;
         }
+    #popuptext {
+        position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 2;
+    }
+    #popuppot {
+        position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 3;
+    }
     #popup img {
-    max-width: 100%;
-    max-height: 80vh;
+    max-width: 1600px;
+    max-height:auto;
+}
+#popuppot img {
+    max-width: 1600px;
+    max-height:auto;
+}
+#popupp {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
 }
 #overlay {
     position: fixed;
@@ -30,17 +57,459 @@
     display: none;
     z-index: 1;
 }
+#over1 {
+    position: fixed;
+    top: 37.1%;
+    left: 43.5%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over2{
+    position: fixed;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over3 {
+    position: fixed;
+    top: 36%;
+    left: 56.5%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over4 {
+    position: fixed;
+    top: 37%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over5 {
+    position: fixed;
+    top: 37%;
+    left: 69.5%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over6 {
+    position: fixed;
+    top: 53%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over7 {
+    position: fixed;
+    top: 53%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+#over8 {
+    position: fixed;
+    top: 53.5%;
+    left: 67.5%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    z-index: 5;
+}
+.overimg {
+    width: 100px;
+    height: 100px;
+}
+.overimg1 {
+    width: 150px;
+    height: 150px;
+}
+.overimg2 {
+    width: 100px;
+    height: 100px;
+}
+.overimg3 {
+    width: 150px;
+    height: 150px;
+}
+.overimg4 {
+    width: 150px;
+    height: 150px;
+}
+.overimg5 {
+    width: 150px;
+    height: 150px;
+}
 
     </style>
     <link rel="stylesheet" href="style_map.css" />
 </head>
 <body>
-    <canvas id="gameCanvas" width="1650" height="980"></canvas>
-    <div id="background" onclick="handleClick(event)"></div>
+    <canvas id="gameCanvas" width="1650" height="980" onclick="handleClick(event)"></canvas>
     <div id="overlay"></div>
+    <div id="popuptext">
+        <p id="popupp"></p>
+    </div>
     <div id="popup">
         <img id="popupImg" src="pic/cookbook000.png" alt="Popup Image">
     </div>
-    <script src="script_map.js"></script>
+    <div id="popuppot">
+        <img id="popuppotImg" src="pic/potcontent.png" alt="Popup Image">
+    </div>
+    <div id="over1"><img class="overimg" src="pic/Flour.png" alt="Popup Image"></div>
+    <div id="over2"><img class="overimg" src="pic/coffeebeans.png" alt="Popup Image"></div>
+    <div id="over3"><img class="overimg" src="pic/Morsel.png" alt="Popup Image"></div>
+    <div id="over4"><img class="overimg" src="pic/meat.png" alt="Popup Image"></div>
+    <div id="over5"><img class="overimg" src="pic/cobook.png" alt="Popup Image"></div>
+    <div id="over6">
+        <img id="overimg1" src="" alt="Popup Image">
+    </div>
+    <div id="over7"><img class="overimg" src="pic/cobook.png" alt="Popup Image"></div>
+    <div id="over8"><img id="overimg2" src="pic/a？.png" alt="Popup Image"></div>
+    <script>
+        let canvas = document.getElementById('gameCanvas');
+let ctx = canvas.getContext('2d');
+var overlay = document.getElementById('overlay');
+var popup = document.getElementById('popup');
+var popuppot = document.getElementById('popuppot');
+var popupp = document.getElementById('popupp');
+var overimg = document.getElementById('overimg');
+var over1 = document.getElementById('over1');
+var over2 = document.getElementById('over2');
+var over3 = document.getElementById('over3');
+var over4 = document.getElementById('over4');
+var over5 = document.getElementById('over5');
+var over6 = document.getElementById('over6');
+var over7 = document.getElementById('over7');
+var over8 = document.getElementById('over8');
+let state_of_cook=0
+let count=0
+let walkingcount=0
+// 定义物品位置
+
+let xys={
+    "Flour": [300,400,100,100,0,'面粉'],
+    "Coffeebeans": [900,200,80,80,0,'咖啡豆'],
+    "Morsel": [800,500,100,100,0,'小肉'],
+    "Meat": [1500,600,100,100,0,'肉'],
+    "Cobook": [600,100,100,100,0,'菜谱']
+}
+
+// 初始化角色位置
+let x = canvas.width / 2;
+let y = canvas.height / 2;
+
+// 设置wasd控制的角色移动速度
+let speed = 15;
+// 设置角色图像
+let image = new Image();
+image.src = 'pic/威尔逊.png';
+image.onload = function() {
+    ctx.drawImage(image, x - image.width / 2, y - image.height / 2);
+};
+// 绘制背景
+let backgroundImage = new Image();
+backgroundImage.onload = function() {
+  // 绘制背景图片
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+};
+backgroundImage.src = 'pic/map0.png';
+
+let flourImage = new Image();
+flourImage.onload=function() {
+    ctx.drawImage(flourImage,xys["Flour"][0],xys["Flour"][1],xys["Flour"][2],xys["Flour"][3]);
+}
+flourImage.src='pic/Flour.png';
+
+let coffeeImage = new Image();
+coffeeImage.onload=function() {
+    ctx.drawImage(coffeeImage,xys["Coffeebeans"][0],xys["Coffeebeans"][1],xys["Coffeebeans"][2],xys["Coffeebeans"][3]);
+}
+coffeeImage.src='pic/coffeebeans.png';
+
+let morselImage = new Image();
+morselImage.onload=function() {
+    ctx.drawImage(morselImage,xys["Morsel"][0],xys["Morsel"][1],xys["Morsel"][2],xys["Morsel"][3]);
+}
+morselImage.src='pic/Morsel.png';
+
+let meatImage = new Image();
+meatImage.onload=function() {
+    ctx.drawImage(meatImage,xys["Meat"][0],xys["Meat"][1],xys["Meat"][2],xys["Meat"][3]);
+}
+meatImage.src='pic/meat.png';
+
+
+let cookImage = new Image();
+cookImage.onload=function() {
+    ctx.drawImage(cookImage,1000,500,150,150);
+}
+cookImage.src='pic/pot.png';
+
+let cobookImage = new Image();
+cobookImage.onload=function() {
+    ctx.drawImage(cobookImage,xys["Cobook"][0],xys["Cobook"][1],xys["Cobook"][2],xys["Cobook"][3]);
+}
+cobookImage.src='pic/cobook.png';
+
+updateScreen();
+
+// 监听键盘按下事件
+document.addEventListener('keydown', function(event) {
+    switch(event.keyCode) {
+        case 87: // W键
+            y -= speed;
+            image.src = 'pic/威尔逊后向.png';
+            break;
+        case 65: // A键
+            x -= speed;
+            image.src = 'pic/威尔逊左向.png';
+            break;
+        case 83: // S键
+            y += speed;
+            image.src = 'pic/威尔逊.png';
+            break;
+        case 68: // D键
+            x += speed;
+            image.src = 'pic/威尔逊右向.png';
+            break;
+    }
+    if (walkingcount%30==15) {
+        let random=Math.random()
+        if (random<0.33) {
+            showPopupp('我饿了')
+        }
+        else if (random<0.67) {
+            showPopupp('你知道美拉德反应吗？')
+        }
+        else {
+            showPopupp('我想吃点东西')
+        }
+    }
+    walkingcount+=1
+    if (x < 0 || x > canvas.width) {
+        x = Math.max(0, Math.min(x, canvas.width));
+        showPopupp("不要试图走出去，因为外面的地图我没做（")
+      }
+      
+      if (y < 0 || y > canvas.height) {
+        showPopupp("威尔逊掉出了世界")
+        y = Math.max(0, Math.min(y, canvas.height));
+      }
+    updateScreen();
+});
+
+function handleClick(event) {
+    var cx=event.clientX;
+    var cy=event.clientY;
+    var canvaswidth=canvas.width;
+    var canvasheight=canvas.height;
+    if (cx>canvaswidth*0.098 && cx<canvaswidth*0.152 && cy>0 && cy<canvasheight*0.112) {
+        showPopup();
+        showPopupp('菜谱是个好东西')
+    }
+    if (cx>=1000 && cx<=1150 && cy>=500 && cy<=650) {
+        if (x>=900 && x<=1250 && y>=400 && y<=750) {
+            showPopuppot();
+            state_of_cook=1;
+        }
+        else {
+            showPopupp("太远了！");
+        }
+    }
+    for (let item in xys) {
+        if (cx>xys[item][0] && cx<xys[item][0]+xys[item][2] && cy>xys[item][1] && cy<xys[item][1]+xys[item][3]) {
+            if (xys[item][4]==1) {
+                //console.log("你已经拿过了"+item);
+                showPopupp("你已经拿过了"+xys[item][5]);
+            }
+            else {
+                if (x>xys[item][0]-80 && x<xys[item][0]+xys[item][2]+80 && y>xys[item][1]-80 && y<xys[item][1]+xys[item][3]+80) {
+                    xys[item][0]=count*70+130
+                    xys[item][1]=900
+                    xys[item][2]=70
+                    xys[item][3]=70
+                    xys[item][4]=1
+                    count+=1
+                    showPopupp("你拿到了"+xys[item][5]+"*1");
+                    //console.log("获得了"+item+"*1");
+                    updateScreen();
+                }
+                else {
+                    //console.log("太远了！");
+                    showPopupp("太远了！");
+                }
+            }
+        }
+    }
+}
+
+function showPopupp(text) {
+    popupp.textContent=text;
+}
+
+function showPopup() {
+    overlay.style.display = 'block';
+    popup.style.display = 'block';
+}
+function closePopup() {
+    overlay.style.display = 'none';
+    popup.style.display = 'none';
+}
+let choice_of_diet=0
+let choice_of_cobook=0
+let last_choice=0
+let now_choice=0
+function showPopuppot() {
+    overlay.style.display = 'block';
+    popuppot.style.display = 'block';
+    over8.style.display = 'block';
+    for (let item in xys) {
+        if (xys[item][4]==1) {
+            if (item=="Flour") {
+                over1.style.display = 'block';
+            }
+            else if (item=="Coffeebeans") {
+                over2.style.display = 'block';
+                }
+            else if (item=="Morsel") {
+                over3.style.display = 'block';
+            }
+            else if (item=="Meat") {
+                over4.style.display = 'block';
+            }
+            else if (item=="Cobook") {
+                over5.style.display = 'block';
+            }
+        }
+    }
+    var overimg1=document.getElementById('overimg1');
+    var overimg2=document.getElementById('overimg2');
+    document.getElementById('over1').addEventListener('click', function(event) {
+        overimg1.src='pic/Flour.png'
+        over6.style.display='block';
+        choice_of_diet=1
+    });
+    document.getElementById('over2').addEventListener('click', function(event) {
+        overimg1.src='pic/coffeebeans.png'
+        over6.style.display='block';
+        choice_of_diet=2
+    });
+    document.getElementById('over3').addEventListener('click', function(event) {
+        overimg1.src='pic/Morsel.png'
+        over6.style.display='block';
+        choice_of_diet=3
+    });
+    document.getElementById('over4').addEventListener('click', function(event) {
+        overimg1.src='pic/meat.png'
+        over6.style.display='block';
+        choice_of_diet=4
+    });
+    document.getElementById('over5').addEventListener('click', function(event) {
+        over7.style.display='block';
+        choice_of_cobook=1
+    });
+    document.getElementById('over6').addEventListener('click', function(event) {
+        over6.style.display='none';
+    });
+    document.getElementById('over7').addEventListener('click', function(event) {
+        over7.style.display='none';
+    });
+    document.getElementById('over8').addEventListener('click', function(event) {
+        if (choice_of_cobook==1) {
+            if (choice_of_diet==1) {
+                overimg2.src='pic/Bread.png'
+                over8.style.display='block';
+                now_choice=1;
+            }
+            else if (choice_of_diet==2) {
+                overimg2.src='pic/coffee.png'
+                over8.style.display='block';
+                now_choice=2;
+            }
+            else if (choice_of_diet==3) {
+                overimg2.src='pic/Kabobs.png'
+                over8.style.display='block';
+                now_choice=3;
+            }
+            else if (choice_of_diet==4) {
+                overimg2.src='pic/hongshaorou.png'
+                over8.style.display='block';
+                now_choice=4;
+            }
+            if (last_choice==now_choice) {
+                if (now_choice==1) {
+                    window.location.href="end1.html";
+                }
+                else if (now_choice==2) {
+                    window.location.href="end2.html";
+                }
+                else if (now_choice==3) {
+                    window.location.href="end3.html";
+                }
+                else if (now_choice==4) {
+                    window.location.href="end4.html";
+                }
+            }
+            else {
+                last_choice=now_choice;
+            }
+        }
+    });
+}
+
+function closePopuppot() {
+    state_of_cook=0;
+    overlay.style.display = 'none';
+    popuppot.style.display = 'none';
+    over1.style.display = 'none';
+    over2.style.display = 'none';
+    over3.style.display = 'none';
+    over4.style.display = 'none';
+    over5.style.display = 'none';
+    over6.style.display = 'none';
+    over7.style.display = 'none';
+    over8.style.display = 'none';
+    choice_of_cobook=0;
+    choice_of_diet=0;
+    var overimg2=document.getElementById('overimg2');
+    overimg2.src='pic/a？.png';
+}
+overlay.addEventListener('click', function(event) {
+    if (event.target === overlay) {
+        closePopup();
+        closePopuppot();
+    }
+});
+
+// 更新屏幕显示
+function updateScreen() {
+    // 清除之前的画
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 重新绘制背景
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    // 重新绘制角色
+    ctx.drawImage(flourImage,xys["Flour"][0],xys["Flour"][1],xys["Flour"][2],xys["Flour"][3]);
+    ctx.drawImage(cookImage,1000,500,150,150);
+    ctx.drawImage(coffeeImage,xys["Coffeebeans"][0],xys["Coffeebeans"][1],xys["Coffeebeans"][2],xys["Coffeebeans"][3]);
+    ctx.drawImage(morselImage,xys["Morsel"][0],xys["Morsel"][1],xys["Morsel"][2],xys["Morsel"][3]);
+    ctx.drawImage(meatImage,xys["Meat"][0],xys["Meat"][1],xys["Meat"][2],xys["Meat"][3]);
+    ctx.drawImage(cobookImage,xys["Cobook"][0],xys["Cobook"][1],xys["Cobook"][2],xys["Cobook"][3]);
+    ctx.drawImage(image, x - image.width / 2, y - image.height / 2);
+}
+    </script>
 </body>
 </html>

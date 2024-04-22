@@ -1,0 +1,177 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>对话</title>  
+<style>
+    img.logo {
+    height:7%;
+    width: auto;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    z-index: 10;
+    cursor: pointer;
+}
+
+img.character1 {
+    height: 200px;
+    width: auto;
+}
+img.character2{
+    height: 200px;
+    width: auto;
+}
+body, html {    
+    width: 100%;
+    height: 100%;    
+    margin: 0;    
+    font-family: Arial, sans-serif;    
+    display: flex;    
+    flex-direction: column;    
+    align-items: center;    
+    justify-content: space-between;    
+    cursor: pointer;    
+    background-image: url('pic/map0.jpg');  
+    background-repeat: no-repeat; /* 防止背景图片重复 */  
+    background-size: cover; /* 可选：确保背景图片覆盖整个元素 */  
+}
+  
+.nextLink {
+    text-decoration: none;
+    color: #fff;
+}
+.characters {  
+    display: flex;  
+    justify-content:center;  
+    align-items: center;  
+    width: 100%;  
+    padding: 20px;  
+    z-index: 2;
+}  
+  
+.character {  
+    position: fixed;
+    height: 200%;
+    width: auto;
+    left: 55%;
+    top: 50%;  
+    color: #888;  
+}  
+  
+.character.active {  
+    position: fixed;
+    height: 200%;
+    width: auto;
+    left: 35%;
+    top: 50%;  
+    color: #000;  
+}  
+
+.dialogName-box {  
+    font-size: 40px;  
+    color: #888;  
+    position: fixed;
+    height: 100px;
+    bottom: 200px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: medium;
+    text-align: center;
+    color: #fff;
+}  
+  
+.dialog-box {  
+    position: fixed;  
+    height: 200px;
+    bottom: 0;  
+    width: 100%;  
+    background-color: rgba(0, 0, 0, 0.5);  
+    padding: medium;  
+    text-align: center;  
+    color: #fff;  
+    font-size: 30px;  
+}  
+ 
+#dialogName {  
+    margin: 0;  
+}  
+  
+#dialogText {  
+    margin: 0;  
+}
+
+#clickArea {  
+    /* 隐藏遮罩层，使其不影响其他元素的可视性 */  
+    pointer-events: auto; /* 允许遮罩层接收鼠标事件 */  
+    background: transparent; /* 背景透明 */  
+    z-index: 3; /* 确保遮罩层在角色和对话栏之上 */  
+}
+</style>
+</head>  
+<body>  
+    <a href="https://wbhu.nju.edu.cn/">
+        <img src="pic/logo-garden.gif" class="logo">
+    </a>
+    <div class="characters">  
+        <div class="character left" id="char1">
+            <img class="character1" src="pic/威尔逊.png" alt="character1">
+        </div>  
+        <div class="character right" id="char2" >
+            <img class="character2" src="pic/Ghost_Build.png" alt="character2">
+        </div>  
+    </div>  
+    <div class="dialogName-box">
+        <p id="dialogName"></p>
+    </div>  
+    <div class="dialog-box">  
+        <p id="dialogText"></p>
+    </div>  
+    <div id="clickArea" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+    <script>
+        // script.js  
+const characters = document.querySelectorAll('.character');  
+const dialogText = document.getElementById('dialogText');  
+const dialogName = document.getElementById('dialogName');  
+clickArea=document.getElementById('clickArea');  
+let activeCharacter = characters[0];  
+let dialogIndex = 0;  
+const dialogs = [  
+    '哦！一块面包！',  
+    '制作过程比我想象中的简单',
+    '面包的香味可不是那么简单就出来的',   
+    '那面包香是哪来的？',   
+    '烤面包的过程中，面团中的糖和氨基酸会发生美拉德反应',
+    '美拉德反应？那是什么？',
+    '美拉德反应能让面包表面变得酱黄有光泽，产生独特的甜味、焦香味和口感',
+    '这么神奇',
+    '让我们一起来了解一下美拉德反应吧！'    
+];  
+
+dialogNames = [
+    '--???--',
+    '--威尔逊--',
+]
+  
+document.getElementById('clickArea').addEventListener('click',function() {
+    if (dialogIndex >= dialogs.length) {  
+        // 所有对话结束，跳转到下一界面  
+        window.location.href = "introduction.html";
+    }  else {   
+        showDialog(dialogIndex);  
+        dialogIndex++;   
+    } 
+}) 
+  
+function showDialog(index) {  
+    dialogText.textContent = dialogs[index];  
+    dialogName.textContent = dialogNames[index%2];  
+}  
+  
+// 初始化，显示第一个角色的台词  
+showDialog(0);  
+activeCharacter.classList.add('active');
+    </script>  
+</body>  
+</html>

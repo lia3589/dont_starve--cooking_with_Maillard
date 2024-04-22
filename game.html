@@ -70,10 +70,10 @@ body, html {
 }  
 
 .dialogName-box {  
-    font-size: 24px;  
+    font-size: 40px;  
     color: #888;  
     position: fixed;
-    height: 50px;
+    height: 100px;
     bottom: 200px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -91,7 +91,7 @@ body, html {
     padding: medium;  
     text-align: center;  
     color: #fff;  
-    font-size: 18px;  
+    font-size: 30px;  
 }  
  
 #dialogName {  
@@ -111,7 +111,9 @@ body, html {
 </style>
 </head>  
 <body>  
+    <a href="https://wbhu.nju.edu.cn/">
     <img src="pic/logo-garden.gif" class="logo">
+    </a>
     <div class="characters">  
         <div class="character left" id="char1">
             <img class="character1" src="pic/威尔逊.png" alt="character1">
@@ -137,15 +139,25 @@ let activeCharacter = characters[0];
 let dialogIndex = 0;  
 const dialogs = [  
     '你好，威尔逊！',  
-    '待填入文本1',
-    '待填入文本2',   
-    '待填入文本3',   
-    '待填入文本4',     
+    '你是谁？',
+    '或许你有些饿了',   
+    '并没有',   
+    '既然你饿了，那就开始烹饪吧！',
+    '???',
+    '我猜你喜欢【香甜】的食物',
+    '谁不喜欢呢？',
+    '等会地图上会有食材',
+    '野生的食材...',
+    '你可以按【WASD】移动，【靠近】食材，【点击】捡起',
+    '?',
+    '左上角还有【菜谱】，收集够食材后就可以靠近【烹饪锅】烹饪了',
+    '哪的左上角???',
+    '总之，希望你烹饪出【美味】的食物！出发吧！'     
 ];  
 
 dialogNames = [
-    '???',
-    '威尔逊',
+    '--???--',
+    '--威尔逊--',
 ]
   
 document.getElementById('clickArea').addEventListener('click',function() {
