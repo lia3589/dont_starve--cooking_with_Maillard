@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图片轮播</title>
+    <style>
+        .image-container {
+            width: 80%;
+            height: auto;
+            height: auto;
+            overflow: hidden;
+            position: absolute;
+            top: 6%;
+            left: 10%;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s ease;
+            border-radius: 20px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .left {
+            background-image: url("pic/left_arrow.png");
+            left: 0;
+        }
+
+        .right {
+            background-image: url("pic/right_arrow.png");
+            right: 0;
+        }
+
+        .dot-container {
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .number {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="image-container">
+    <img id="slide1" src="pic/help1.png" alt="Slide 1">
+    <img id="slide2" src="pic/help2.png" alt="Slide 2">
+    <img id="slide3" src="pic/help3.png" alt="Slide 3">
+    <img id="slide4" src="pic/help4.png" alt="Slide 4">
+    <img id="slide5" src="pic/help5.png" alt="Slide 5">
+    <img id="slide6" src="pic/help6.png" alt="Slide 6">
+    <img id="slide7" src="pic/help7.png" alt="Slide 7">
+    <!-- 添加更多的图片元素 -->
+
+    <a class="arrow left" onclick="plusDivs(-1)"></a>
+    <a class="arrow right" onclick="plusDivs(1)"></a>
+
+    <div class="dot-container">
+        <span class="number">1/7</span>
+    </div>
+</div>
+
+<script>
+    var slideIndex = 0;
+    showDivs(slideIndex);
+
+    function currentDiv(n) {
+        slideIndex = n - 1;
+        showDivs(slideIndex);
+    }
+
+    function showDivs(n) {
+        var i;
+        var slides = document.getElementsByTagName("img");
+        var current = document.getElementById(slides[n].id);
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        if (n < 0) {slideIndex = slides.length - 1; n = slideIndex} 
+        current.style.display = "block";
+        document.querySelector(".number").textContent = (n + 1) + '/' + slides.length;
+    }
+
+    function plusDivs(n) {
+        if (slideIndex + n >= 7) {
+            window.location.href = "map.html";
+        }
+        showDivs((slideIndex = (slideIndex + n) % 7));
+    }
+
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>对话</title>  
+<title>结局4：红烧肉！</title>  
 <style>
     img.logo {
     height:7%;
@@ -116,10 +116,10 @@ body, html {
     </a>
     <div class="characters">  
         <div class="character left" id="char1">
-            <img class="character1" src="pic/威尔逊.png" alt="character1">
+            <img id="character1" src="pic/威尔逊.png" alt="character1">
         </div>  
         <div class="character right" id="char2" >
-            <img class="character2" src="pic/Ghost_Build.png" alt="character2">
+            <img id="character2" src="pic/Ghost_Build.png" alt="character2">
         </div>  
     </div>  
     <div class="dialogName-box">
@@ -140,7 +140,9 @@ let dialogIndex = 0;
 const dialogs = [  
     '这个红烧肉的画风怎么跟其他的都不太一样',
     '我也不知道，但是红烧肉真的好吃',
-    '确实'  
+    '确实'  ,
+    '我这里有一张海报，讲了红烧肉的制作，或许你想看看',
+    '为什么不呢？',
 ];  
 
 dialogNames = [
