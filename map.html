@@ -212,6 +212,13 @@ let xys={
 let x = canvas.width / 2;
 let y = canvas.height / 2;
 
+// 绘制背景
+let backgroundImage = new Image();
+backgroundImage.onload = function() {
+  // 绘制背景图片
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+};
+backgroundImage.src = 'pic/map0.png';
 // 设置wasd控制的角色移动速度
 let speed = 15;
 // 设置角色图像
@@ -220,13 +227,6 @@ image.src = 'pic/威尔逊.png';
 image.onload = function() {
     ctx.drawImage(image, x - image.width / 2, y - image.height / 2);
 };
-// 绘制背景
-let backgroundImage = new Image();
-backgroundImage.onload = function() {
-  // 绘制背景图片
-  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-};
-backgroundImage.src = 'pic/map0.png';
 
 let flourImage = new Image();
 flourImage.onload=function() {
